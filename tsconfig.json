@@ -1,0 +1,22 @@
+{
+    "include": ["src/**/*"],
+    "exclude": ["node_modules","dist"],
+    "compilerOptions":{
+        "outDir": "./dist/",
+        "module": "esnext",
+        "target": "esnext",
+        "moduleResolution": "node",
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "allowJs": true,
+        "allowSyntheticDefaultImports": true,
+        "experimentalDecorators": true,
+        "resolveJsonModule": true,
+        "sourceMap": true,
+        "baseUrl": ".",
+        "paths": {
+            "@/*":["src/*"],
+        }
+    }
+}

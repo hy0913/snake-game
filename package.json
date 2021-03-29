@@ -1,0 +1,29 @@
+{
+  "name": "snake-game",
+  "version": "1.0.0",
+  "description": "用canvas写个贪吃蛇的小游戏",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --config webpack.dev.js",
+    "build": "webpack --config webpack.dev.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hy0913/snake-game.git"
+  },
+  "author": "hy",
+  "license": "ISC",
+  "dependencies": {
+    "html-webpack-plugin": "^5.3.1",
+    "ts-loader": "^8.0.18",
+    "typescript": "^4.2.3",
+    "webpack": "^5.26.3",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "bugs": {
+    "url": "https://github.com/hy0913/snake-game/issues"
+  },
+  "homepage": "https://github.com/hy0913/snake-game#readme"
+}
