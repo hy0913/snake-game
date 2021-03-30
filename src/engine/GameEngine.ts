@@ -1,5 +1,5 @@
-import { EngineState } from "../core/EngineState";
-import { UUID4 } from "../utils/UUID";
+import { State } from "../core/EngineState";
+import { UUID } from "../utils/UUID";
 import { AppleObject } from "./objects/AppleObject";
 import { SnakeObject } from "./objects/SnakeObject";
 
@@ -7,13 +7,13 @@ import { SnakeObject } from "./objects/SnakeObject";
 export class GameEngine {
 
     /**ID 每次实例化生成唯一的ID*/
-    private readonly _id:string = UUID4.generate();
+    private readonly _id:string = UUID.add();
 
     /**所在的HTML容器*/
     private readonly _container:HTMLElement;
 
     /**当前状态*/ 
-    private _state:EngineState = EngineState.CREATE;
+    private _state:State = State.CREATE;
 
     /** 蛇对象*/
     private readonly _snake:SnakeObject;
@@ -25,16 +25,16 @@ export class GameEngine {
     private _context:any = {};
 
     /** 配置参数*/
-    private _settings;
+    private _config;
 
-    constructor(container:HTMLElement,settings:Setting){
-        this._settings = settings;
-        this._context.settings = this._settings;
+    constructor(container:HTMLElement,config:Setting){
+        this._config = config;
+        this._context.settings = this._config;
     }
 
     /**创建实例*/
-    static create(container:HTMLElement,settings:Setting) :GameEngine{
-        return new GameEngine(container,settings)
+    static create(container:HTMLElement,config:Setting) :GameEngine{
+        return new GameEngine(container,config)
     }
 
     init(){

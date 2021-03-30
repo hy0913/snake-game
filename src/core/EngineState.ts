@@ -1,4 +1,4 @@
-export enum EngineState {
+export enum State {
 
     /**
      * 创建状态，一切未初始化
@@ -19,9 +19,4 @@ export enum EngineState {
      * 暂停状态
      */
     PAUSE = 'Pause',
-
-    /**
-     * 关闭状态
-     */
-    SHUTDOWN = 'Shutdown'
 }
