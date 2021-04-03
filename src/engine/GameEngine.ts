@@ -1,13 +1,15 @@
-import { State } from "../core/EngineState";
 import { UUID } from "../utils/UUID";
 import { AppleObject } from "./objects/AppleObject";
 import { SnakeObject } from "./objects/SnakeObject";
+
+// 默认蛇的坐标
+const defaultSnakes:Array<[number,number]> = [[0, 0], [1, 0], [2, 0]];
 
 /**贪吃蛇*/
 export class GameEngine {
 
     /**ID 每次实例化生成唯一的ID*/
-    private readonly _id: string = UUID.add();
+    private readonly _id: string = UUID.create();
 
     /**所在的HTML容器*/
     private readonly _container: HTMLElement;
@@ -22,16 +24,17 @@ export class GameEngine {
     private _ctx: any;
 
     /** 配置参数*/
-    private _config;
+    private _config:Setting;
 
     /** 上下文对象*/
-    private _context: any = {};
+    private _context: EngineContext = {};
 
     constructor(container: HTMLElement, config: Setting) {
         this._config = config;
         this._context.settings = this._config;
 
         this._container = container;
+        this._context.container = this._container;
 
         // 生成2D画布对象
         this.createCanvas(container);
@@ -41,7 +44,7 @@ export class GameEngine {
         this._context.apple = this._apple;
 
         // 初始化蛇对象
-        this._snake = new SnakeObject(this._context, [[0, 0], [1, 0], [2, 0]]);
+        this._snake = new SnakeObject(this._context, defaultSnakes);
         this._context.snake = this._snake;
 
     }
@@ -66,10 +69,22 @@ export class GameEngine {
         container.appendChild(canvas);
 
     }
-
 }
 
-interface Setting {
+export interface EngineContext {
+    settings?: Object,
+    container?: HTMLElement,
+    apple?: AppleObject,
+    snake?:SnakeObject,
+    ctx?:any
+}
+
+export interface Setting {
     speed: Number,
+    width: Number,
+    height: Number,
+    snakeWidth: Number
 }
+
+
 
