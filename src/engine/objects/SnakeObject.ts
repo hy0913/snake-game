@@ -18,10 +18,8 @@ export class SnakeObject {
 
         // 添加上下左右监听事件
         this.addListener()
-
         // 初始化蛇
         this.renderSnake();
-
         // 定时运动
         this.animate();
 
@@ -47,6 +45,7 @@ export class SnakeObject {
     move(direction: DirectionNum) {
         const { ctx, apple, config } = this._context;
         const { width, height } = config;
+        // 获取最后一个点的坐标
         let lastPosition = this._snakeList[this._snakeList.length - 1];
         switch (direction) {
             case DirectionNum.left:
@@ -70,9 +69,13 @@ export class SnakeObject {
                 return;
         }
         this._direction = direction;
+        // 清除蛇第一个元素
         this._snakeList.shift();
+        // 清空画布
         ctx.clearRect(0, 0, width, height);
+        // 重新绘制
         this.renderSnake();
+        // 绘制苹果位置
         apple.renderApple();
     }
 
@@ -82,15 +85,19 @@ export class SnakeObject {
     renderSnake() {
         const { ctx, apple, config } = this._context;
         const { snakeWidth, width, height } = config;
-
+        
+        // 获取蛇头位置
         let headPosition = this._snakeList[this._snakeList.length - 1];
+        // 获取当前苹果位置
         let applePosition = apple.appleNode;
+        // 头部位置和苹果位置相交,代表吃到苹果了
         if (headPosition[0] === applePosition[0] && headPosition[1] === applePosition[1]) {
-            // 头部位置和苹果位置相交,及吃到苹果了
             let first = this._snakeList[0];
             const xMove = this._direction === DirectionNum.left ? 1 : this._direction === DirectionNum.right ? -1 : 0;
             const yMove = this._direction === DirectionNum.up ? 1 : this._direction === DirectionNum.down ? -1 : 0;
+            // 在蛇的尾部增加一个元素
             this._snakeList.unshift([first[0] - xMove, first[1] - yMove]);
+            // 清除苹果
             apple.clearApple();
         }
 

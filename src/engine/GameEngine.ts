@@ -67,7 +67,6 @@ export class GameEngine {
         this._ctx = canvas.getContext('2d');
         this._context.ctx = this._ctx;
         container.appendChild(canvas);
-
     }
 }
 

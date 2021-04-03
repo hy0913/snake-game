@@ -31,6 +31,7 @@ export class AppleObject {
         ctx.fillRect(x * snakeWidth, y * snakeWidth, snakeWidth, snakeWidth);
     }
 
+    /**清除当前苹果*/
     clearApple() {
         this._appleNode = [];
     }
