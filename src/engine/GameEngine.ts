@@ -36,8 +36,14 @@ export class GameEngine {
         // 生成2D画布对象
         this.createCanvas(container);
 
+        // 初始化苹果对象
+        this._apple = new AppleObject(this._context);
+        this._context.apple = this._apple;
+
         // 初始化蛇对象
-        this._snake = new SnakeObject(this._context, [[0, 0],[1, 0], [2, 0]]);
+        this._snake = new SnakeObject(this._context, [[0, 0], [1, 0], [2, 0]]);
+        this._context.snake = this._snake;
+
     }
 
     /**创建实例*/
@@ -50,8 +56,8 @@ export class GameEngine {
         canvas.classList.add('snake-canvas');
         canvas.style.position = 'absolute';
         canvas.style.backgroundColor = 'lightblue';
-        canvas.width = 800;
-        canvas.height = 800;
+        canvas.width = 600;
+        canvas.height = 600;
         canvas.style.left = '50%';
         canvas.style.top = '50%';
         canvas.style.transform = 'translate(-50%,-50%)';
@@ -61,13 +67,6 @@ export class GameEngine {
 
     }
 
-    init() {
-
-    }
-
-    start() {
-
-    }
 }
 
 interface Setting {
