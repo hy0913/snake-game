@@ -31,13 +31,13 @@ export class GameEngine {
 
     constructor(container: HTMLElement, config: Setting) {
         this._config = config;
-        this._context.settings = this._config;
+        this._context.config = this._config;
 
         this._container = container;
         this._context.container = this._container;
 
         // 生成2D画布对象
-        this.createCanvas(container);
+        this.createCanvas(container,config);
 
         // 初始化苹果对象
         this._apple = new AppleObject(this._context);
@@ -54,13 +54,13 @@ export class GameEngine {
         return new GameEngine(container, config)
     }
 
-    createCanvas(container: HTMLElement) {
+    createCanvas(container: HTMLElement,config:Setting) {
         let canvas = document.createElement('canvas');
         canvas.classList.add('snake-canvas');
         canvas.style.position = 'absolute';
         canvas.style.backgroundColor = 'lightblue';
-        canvas.width = 600;
-        canvas.height = 600;
+        canvas.width = config.width || 600;
+        canvas.height = config.height || 600;
         canvas.style.left = '50%';
         canvas.style.top = '50%';
         canvas.style.transform = 'translate(-50%,-50%)';
@@ -72,7 +72,7 @@ export class GameEngine {
 }
 
 export interface EngineContext {
-    settings?: Object,
+    config?: Setting,
     container?: HTMLElement,
     apple?: AppleObject,
     snake?:SnakeObject,
@@ -80,10 +80,10 @@ export interface EngineContext {
 }
 
 export interface Setting {
-    speed: Number,
-    width: Number,
-    height: Number,
-    snakeWidth: Number
+    speed?: number,
+    width?: number,
+    height?: number,
+    snakeWidth?: number
 }
 
 

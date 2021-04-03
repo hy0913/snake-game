@@ -1,7 +1,7 @@
 import { EngineContext } from "../GameEngine";
 
 export class SnakeObject {
-    private _context: EngineContext;
+    private readonly _context: EngineContext;
 
     // 蛇当前方向
     private _direction: DirectionNum = DirectionNum.right;
@@ -23,7 +23,7 @@ export class SnakeObject {
         this.renderSnake();
 
         // 定时运动
-        this.animate()
+        this.animate();
 
     }
 
@@ -36,14 +36,17 @@ export class SnakeObject {
 
     /** 定时运动*/
     animate() {
+        const { config } = this._context;
+        const { speed } = config;
         this._timer = setInterval(() => {
             this.move(this._direction);
-        }, 200)
+        }, speed)
     }
 
     /**移动蛇*/
     move(direction: DirectionNum) {
-        const { ctx, apple } = this._context;
+        const { ctx, apple, config } = this._context;
+        const { width, height } = config;
         let lastPosition = this._snakeList[this._snakeList.length - 1];
         switch (direction) {
             case DirectionNum.left:
@@ -68,7 +71,7 @@ export class SnakeObject {
         }
         this._direction = direction;
         this._snakeList.shift();
-        ctx.clearRect(0, 0, 600, 600);
+        ctx.clearRect(0, 0, width, height);
         this.renderSnake();
         apple.renderApple();
     }
@@ -77,8 +80,8 @@ export class SnakeObject {
 
     /**画蛇*/
     renderSnake() {
-        const square = 10;
-        const  { ctx, apple } = this._context;
+        const { ctx, apple, config } = this._context;
+        const { snakeWidth, width, height } = config;
 
         let headPosition = this._snakeList[this._snakeList.length - 1];
         let applePosition = apple.appleNode;
@@ -96,7 +99,7 @@ export class SnakeObject {
             let y = this._snakeList[i][1];
             ctx.fillStyle = "#FF0000";
             // 出界---失败
-            if (square * x > 600 || square * y > 600 || x < 0 || y < 0) {
+            if (snakeWidth * x > width || snakeWidth * y > height || x < 0 || y < 0) {
                 alert('游戏结束');
                 clearInterval(this._timer);
                 break;
@@ -107,7 +110,7 @@ export class SnakeObject {
                 clearInterval(this._timer);
                 break;
             }
-            ctx.fillRect(x * square, y * square, square, square);
+            ctx.fillRect(x * snakeWidth, y * snakeWidth, snakeWidth, snakeWidth);
         }
     }
 }

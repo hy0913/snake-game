@@ -1,15 +1,15 @@
 import { EngineContext } from "../GameEngine";
 
 export class AppleObject {
-    private _context: EngineContext;
+    private readonly _context: EngineContext;
 
     private _appleNode: Array<number> = [];
 
     constructor(context: EngineContext) {
         this._context = context;
-        
+
         // 轮询不断的生成苹果
-        this.appleGenerate()
+        this.appleGenerate();
     }
 
     appleGenerate() {
@@ -20,15 +20,15 @@ export class AppleObject {
 
     /**画苹果*/
     renderApple() {
+        const { ctx, config } = this._context;
+        const { snakeWidth, width, height } = config;
         if (!this._appleNode.length) {
-            this._appleNode = [Math.floor(Math.random() * 60), Math.floor(Math.random() * 60)];
+            this._appleNode = [Math.floor(Math.random() * width / snakeWidth), Math.floor(Math.random() * height / snakeWidth)];
         }
-        const square = 10;
-        const { ctx } = this._context;
-        let x = this._appleNode[0];
-        let y = this._appleNode[1];
+        const x = this._appleNode[0];
+        const y = this._appleNode[1];
         ctx.fillStyle = "blue";
-        ctx.fillRect(x * square, y * square, square, square);
+        ctx.fillRect(x * snakeWidth, y * snakeWidth, snakeWidth, snakeWidth);
     }
 
     clearApple() {
